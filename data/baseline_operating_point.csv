@@ -1,0 +1,20 @@
+Parameter,Symbol,Value,Unit,Notes
+Input voltage,Vin,24,V,Fixed DC supply
+Output voltage,Vout,12,V,Target buck-converter output
+Output current,Iout,10,A,Nominal operating current
+Load resistance,Rload,1.2,ohm,Calculated from Vout/Iout
+Switching frequency,fs,50000,Hz,50 kHz
+Duty cycle,D,0.5,-,Ideal value Vout/Vin
+MOSFET,Device,IRFZ44N,-,LTspice device model
+Gate-drive voltage,Vgs,10,V,Ideal pulse source
+Rise time,tr,60,ns,Datasheet value used analytically
+Fall time,tf,45,ns,Datasheet value used analytically
+Model-based on-resistance,Rds_on_model,0.0139,ohm,Used for direct analytical comparison with LTspice
+Datasheet maximum on-resistance,Rds_on_datasheet,0.0175,ohm,Maximum value specified at 25 degC
+Inductance,L,40,uH,Converter inductance
+Capacitance,C,100,uF,Output capacitance
+Ambient temperature,Ta,25,degC,Initial thermal condition
+Model-based analytical MOSFET loss,P_analytical_model,1.325,W,Uses Rds(on) of 0.0139 ohm
+Datasheet maximum analytical loss,P_analytical_datasheet,1.505,W,Conservative case using Rds(on) of 0.0175 ohm
+LTspice MOSFET loss,P_LTspice,0.731,W,Average simulated device power at 25 degC
+Thermal heat input,P_thermal,1.505,W,Conservative baseline for thermal modelling
