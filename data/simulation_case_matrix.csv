@@ -1,0 +1,13 @@
+Case_ID,Load_Point,Load_Current_A,Heat_Load_W,Material,TIM,Geometry,Ambient_Temperature_C,Purpose
+C01,Low load,5,0.489,Aluminium,TIM1,Baseline,25,Load comparison
+C02,Baseline,10,1.505,Aluminium,TIM1,Baseline,25,Reference case
+C03,High load,15,2.509,Aluminium,TIM1,Baseline,25,Load comparison
+C04,Baseline,10,1.505,Copper,TIM1,Baseline,25,Material comparison
+C05,Baseline,10,1.505,Hybrid,TIM1,Baseline,25,Material comparison
+C06,Baseline,10,1.505,Aluminium,TIM2,Baseline,25,TIM comparison
+C07,Baseline,10,1.505,Aluminium,Ideal contact,Baseline,25,Interface reference
+C08,Baseline,10,1.505,Aluminium,TIM1,Geometry_1,25,Geometry comparison
+C09,Baseline,10,1.505,Aluminium,TIM1,Geometry_2,25,Geometry comparison
+C10,High load,15,2.509,Copper,TIM1,Baseline,25,High-load material check
+C11,High load,15,2.509,Aluminium,TIM2,Baseline,25,High-load TIM check
+C12,High load,15,2.509,Aluminium,TIM1,Geometry_2,25,High-load geometry check
