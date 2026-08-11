@@ -1,0 +1,11 @@
+Parameter,Symbol,Value,Unit,Notes
+MOSFET,Device,IRFZ44N,-,Selected MOSFET
+Model-based on-resistance,Rds_on_model,0.0139,ohm,Used for direct analytical comparison with LTspice
+Datasheet maximum on-resistance,Rds_on_datasheet,0.0175,ohm,Maximum value at 25 degC
+Rise time,tr,60,ns,Datasheet value used analytically
+Fall time,tf,45,ns,Datasheet value used analytically
+Maximum junction temperature,Tj_max,175,degC,Absolute maximum device rating
+Recommended junction temperature,Tj_recommended,125,degC,Selected project operating target
+Heat-source width,W_source,15.8,mm,Simplified MOSFET contact-face width
+Heat-source height,H_source,10.0,mm,Simplified MOSFET contact-face height
+Heat-source area,A_source,0.000158,m^2,Calculated contact area

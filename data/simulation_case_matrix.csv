@@ -1,13 +1,16 @@
-Case_ID,Load_Point,Load_Current_A,Heat_Load_W,Material,TIM,Geometry,Ambient_Temperature_C,Purpose
-C01,Low load,5,0.489,Aluminium,TIM1,Baseline,25,Load comparison
-C02,Baseline,10,1.505,Aluminium,TIM1,Baseline,25,Reference case
-C03,High load,15,2.509,Aluminium,TIM1,Baseline,25,Load comparison
-C04,Baseline,10,1.505,Copper,TIM1,Baseline,25,Material comparison
-C05,Baseline,10,1.505,Hybrid,TIM1,Baseline,25,Material comparison
-C06,Baseline,10,1.505,Aluminium,TIM2,Baseline,25,TIM comparison
-C07,Baseline,10,1.505,Aluminium,Ideal contact,Baseline,25,Interface reference
-C08,Baseline,10,1.505,Aluminium,TIM1,Geometry_1,25,Geometry comparison
-C09,Baseline,10,1.505,Aluminium,TIM1,Geometry_2,25,Geometry comparison
-C10,High load,15,2.509,Copper,TIM1,Baseline,25,High-load material check
-C11,High load,15,2.509,Aluminium,TIM2,Baseline,25,High-load TIM check
-C12,High load,15,2.509,Aluminium,TIM1,Geometry_2,25,High-load geometry check
+Case_ID,Scenario_Type,Load_Point,Load_Current_A,Heat_Load_W,Material,TIM_Config,Geometry,Ambient_Temperature_C,Purpose
+C01,Electrical,Low load,5,0.534,Aluminium,TGP5000,Baseline,25,Low-current electrical case
+C02,Electrical,Baseline,10,1.505,Aluminium,TGP5000,Baseline,25,Reference electrical case
+C03,Electrical,High load,20,4.760,Aluminium,TGP5000,Baseline,25,High-current electrical case
+C04,Electrical,Low load,5,0.534,Copper,TGP5000,Baseline,25,Material comparison
+C05,Electrical,Baseline,10,1.505,Copper,TGP5000,Baseline,25,Material comparison
+C06,Electrical,High load,20,4.760,Copper,TGP5000,Baseline,25,Material comparison
+C07,Thermal_Stress,Stress 10W,,10.000,Aluminium,TGP5000,Baseline,25,High thermal-stress comparison
+C08,Thermal_Stress,Stress 10W,,10.000,Copper,TGP5000,Baseline,25,High thermal-stress material comparison
+C09,Thermal_Stress,Stress 15W,,15.000,Aluminium,TGP5000,Baseline,25,Extreme thermal-stress comparison
+C10,Thermal_Stress,Stress 15W,,15.000,Copper,TGP5000,Baseline,25,Extreme thermal-stress material comparison
+C11,Reference,No heat sink,10,1.505,None,None,None,25,No-heat-sink reference at baseline current
+C12,Geometry,Geometry 1 Baseline,10,1.505,Aluminium,TGP5000,Geometry_1,25,Geometry comparison at baseline load
+C13,Geometry,Geometry 2 Baseline,10,1.505,Aluminium,TGP5000,Geometry_2,25,Geometry comparison at baseline load
+C14,Geometry,Geometry 1 Stress,,15.000,Aluminium,TGP5000,Geometry_1,25,Geometry comparison under extreme thermal stress
+C15,Geometry,Geometry 2 Stress,,15.000,Aluminium,TGP5000,Geometry_2,25,Geometry comparison under extreme thermal stress

@@ -1,0 +1,7 @@
+Case_Name,Scenario_Type,Load_Current_A,Heat_Input_W,Notes
+Electrical_5A,Electrically_Derived,5,0.534,Low-load electrical case
+Electrical_10A,Electrically_Derived,10,1.505,Baseline electrical case
+Electrical_20A,Electrically_Derived,20,4.760,High-load electrical case
+Stress_10W,Thermal_Stress,,10.000,Imposed thermal-stress case
+Stress_15W,Thermal_Stress,,15.000,Imposed extreme thermal-stress case
+No_Heat_Sink,Reference,,1.505,Analytical no-heat-sink reference using baseline heat load
