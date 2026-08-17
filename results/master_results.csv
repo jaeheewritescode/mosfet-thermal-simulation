@@ -5,12 +5,16 @@ C03,Electrical,High load,20,4.760,Aluminium,TGP5000,Baseline,25,53.1405,5.3713,9
 C04,Electrical,Low load,5,0.534,Copper,TGP5000,Baseline,25,27.7450,0.5373,99.1124,97.2550,147.2550,,,,Converged,Coupled material-comparison case
 C05,Electrical,Baseline,10,1.505,Copper,TGP5000,Baseline,25,32.8997,1.5464,98.7277,92.1003,142.1003,,,,Converged,Coupled material-comparison case
 C06,Electrical,High load,20,4.760,Copper,TGP5000,Baseline,25,52.3218,5.3486,97.8200,72.6782,122.6782,,,,Converged,Coupled high-current material-comparison case
-C07,Thermal_Stress,Stress 10W,,10.000,Aluminium,TGP5000,Baseline,25,77.390,,,,47.610,97.610,,,,Completed,Imposed thermal-stress case; no electrical coupling or efficiency
-C08,Thermal_Stress,Stress 10W,,10.000,Copper,TGP5000,Baseline,25,76.082,,,,48.918,98.918,,,,Completed,Imposed thermal-stress material-comparison case
-C09,Thermal_Stress,Stress 15W,,15.000,Aluminium,TGP5000,Baseline,25,103.595,,,,21.405,71.405,,,,Completed,Imposed extreme thermal-stress case
-C10,Thermal_Stress,Stress 15W,,15.000,Copper,TGP5000,Baseline,25,101.624,,,,23.376,73.376,,,,Completed,Imposed extreme thermal-stress material-comparison case
+C07,Thermal_Stress,Stress 10W,,10.000,Aluminium,TGP5000,Baseline,25,77.390,,,47.610,97.610,,,,Completed,Imposed thermal-stress case; no electrical coupling or efficiency
+C08,Thermal_Stress,Stress 10W,,10.000,Copper,TGP5000,Baseline,25,76.082,,,48.918,98.918,,,,Completed,Imposed thermal-stress material-comparison case
+C09,Thermal_Stress,Stress 15W,,15.000,Aluminium,TGP5000,Baseline,25,103.595,,,21.405,71.405,,,,Completed,Imposed extreme thermal-stress case
+C10,Thermal_Stress,Stress 15W,,15.000,Copper,TGP5000,Baseline,25,101.624,,,23.376,73.376,,,,Completed,Imposed extreme thermal-stress material-comparison case
 C11,Reference,No heat sink,10,1.505,None,None,None,25,183.8443,2.5620,97.9096,-58.8443,-8.8443,,,,Exceeded 175C limit,Coupled no-heat-sink reference; stopped after exceeding absolute junction-temperature limit
-C12,Geometry,Geometry 1 Baseline,10,1.505,Aluminium,TGP5000,Geometry_1,25,,,,,,,,,,Pending,Geometry comparison at baseline load
-C13,Geometry,Geometry 2 Baseline,10,1.505,Aluminium,TGP5000,Geometry_2,25,,,,,,,,,,Pending,Geometry comparison at baseline load
-C14,Geometry,Geometry 1 Stress,,15.000,Aluminium,TGP5000,Geometry_1,25,,,,,,,,,,Pending,Geometry comparison under 15 W thermal stress
-C15,Geometry,Geometry 2 Stress,,15.000,Aluminium,TGP5000,Geometry_2,25,,,,,,,,,,Pending,Geometry comparison under 15 W thermal stress
+C12,Geometry,Geometry 1 Baseline,10,1.505,Aluminium,TGP5000,Geometry_1,25,33.7125,,,,91.2875,141.2875,,,Completed,Geometry 1 aluminium baseline-load comparison
+C13,Geometry,Geometry 1 Baseline,10,1.505,Copper,TGP5000,Geometry_1,25,33.5545,,,,91.4455,141.4455,,,Completed,Geometry 1 copper baseline-load comparison
+C14,Geometry,Geometry 2 Baseline,10,1.505,Aluminium,TGP5000,Geometry_2,25,35.4745,,,,89.5255,139.5255,,,Completed,Geometry 2 aluminium baseline-load comparison
+C15,Geometry,Geometry 2 Baseline,10,1.505,Copper,TGP5000,Geometry_2,25,35.3475,,,,89.6525,139.6525,,,Completed,Geometry 2 copper baseline-load comparison
+C16,Geometry,Geometry 1 Stress,,15.000,Aluminium,TGP5000,Geometry_1,25,129.400,,,-4.400,45.600,,,,Completed,Geometry 1 aluminium under 15 W thermal stress
+C17,Geometry,Geometry 1 Stress,,15.000,Copper,TGP5000,Geometry_1,25,128.140,,,-3.140,46.860,,,,Completed,Geometry 1 copper under 15 W thermal stress
+C18,Geometry,Geometry 2 Stress,,15.000,Aluminium,TGP5000,Geometry_2,25,111.831,,,13.169,63.169,,,,Completed,Geometry 2 aluminium under 15 W thermal stress
+C19,Geometry,Geometry 2 Stress,,15.000,Copper,TGP5000,Geometry_2,25,110.259,,,14.741,64.741,,,,Completed,Geometry 2 copper under 15 W thermal stress
