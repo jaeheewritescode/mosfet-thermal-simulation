@@ -23,7 +23,9 @@ The main engineering objective is to determine how electrical loading, MOSFET po
 - Cooling is essential: the 10 A no-heat-sink case exceeds the **175°C device limit**.
 - All cooled **5 A, 10 A and 20 A** operating points remain below the **125°C project target**.
 - Electro-thermal feedback becomes increasingly significant at higher current.
-- Copper provides only a modest junction-temperature improvement over aluminium.
+- Copper provides only a modest junction-temperature improvement over aluminium, while the same geometry is approximately **3.32× heavier**.
+- The 60 mm aluminium geometry reduces heat-sink mass by **25%** relative to the original while remaining below the 125°C target at 15 W.
+- The 40 mm aluminium geometry reduces mass by **50%**, but exceeds the 125°C project target at 15 W.
 - Heat-sink geometry has a stronger influence than material under high thermal demand.
 - At 20 A, the aluminium MOSFET loss increases from approximately **4.760 W one-pass** to **5.371 W coupled**, showing a feedback increase of about **12.8%**.
 - Under a 15 W thermal-stress load, the 60 mm geometry is approximately **17.6–17.9°C cooler** than the 40 mm geometry.
@@ -142,6 +144,26 @@ The 60 mm heat sink therefore gives approximately **17.6–17.9°C lower junctio
 
 This demonstrates that geometry becomes increasingly important as thermal demand increases.
 
+## Mass, Cost and Manufacturability
+
+The thermal comparison was extended using the actual solid dimensions of the heat-sink base and fins. Each fin is **5.5 × 50 × 50 mm**. The original, Geometry 1 and Geometry 2 designs use **8, 6 and 4 fins**, respectively.
+
+| Geometry | Total volume | Aluminium mass | Copper mass | Reduction vs original |
+|---|---:|---:|---:|---:|
+| Original — 80 mm | 130 cm³ | 0.351 kg | 1.165 kg | 0% |
+| Geometry 1 — 60 mm | 97.5 cm³ | 0.263 kg | 0.874 kg | 25% |
+| Geometry 2 — 40 mm | 65 cm³ | 0.176 kg | 0.582 kg | 50% |
+
+For the same geometry, copper is approximately **3.32× heavier** than aluminium. The repository also includes a raw-material cost estimate based on an August 2026 benchmark snapshot (**$3.270/kg aluminium; $14.912/kg copper**). These values are used only for relative material comparison and do not represent finished heat-sink procurement cost. Manufacturing cost would additionally depend on extrusion/machining, tooling, finishing, labour, scrap, supplier margin and production volume.
+
+Mass materially changes the geometry decision. Geometry 2 is 50% lighter than the original aluminium design, but at 15 W it reaches **129.400°C**, above the 125°C project target. Geometry 1 is 25% lighter than the original and remains at **111.831°C** at 15 W, making it the stronger balanced design when both mass and high-load thermal margin matter.
+
+### Manufacturability and Industrial Use
+
+Aluminium 6061-T6 is compatible with extrusion and secondary machining. Because the investigated designs retain a similar straight-fin cross-section, an industrial implementation could use an extruded heat-sink profile, cut it to the required length, machine mounting/contact features, apply any required finish, and assemble the MOSFET/TIM. This supports scalable production while reducing material use in the 60 mm and 40 mm variants.
+
+Copper remains technically viable where its higher conductivity is valuable, but its substantially greater mass and raw-material cost make it harder to justify for this application given the comparatively small thermal improvement.
+
 ## Final Case Matrix
 
 | Case group | Electrical current | Heat load | Material | Geometry | Purpose |
@@ -174,17 +196,17 @@ The Streamlit dashboard also uses this frozen dataset so that the displayed outp
 
 ## Engineering Recommendation
 
-The results indicate that **aluminium is the preferred baseline heat-sink material**.
+Considering **thermal performance, mass, raw-material cost and manufacturability together**, the preferred general-purpose design is **Geometry 1: a 60 mm aluminium 6061-T6 heat sink with the fixed TGP5000 TIM**.
 
-Copper consistently produces lower junction temperatures, but the improvement is relatively small for the geometries investigated.
+The 60 mm aluminium design reduces heat-sink mass by **25%** relative to the original 80 mm geometry (**0.263 kg vs 0.351 kg**) while maintaining an estimated junction temperature of **111.831°C at the imposed 15 W stress load**, leaving approximately **13.17°C margin** to the 125°C project target.
 
-The geometry study shows that changing heat-sink size can have a substantially larger effect on junction temperature than changing from aluminium to copper, particularly under high thermal demand.
+The 40 mm Geometry 2 design is the strongest lightweight/compact option, reducing aluminium mass by **50%** to approximately **0.176 kg**. Its baseline thermal penalty is small, but its junction temperature reaches **129.400°C at 15 W**, so it is not the preferred design if the 125°C stress target must be maintained.
 
-The recommended design strategy is therefore:
+Copper produces slightly lower junction temperatures, but the same geometry is approximately **3.32× heavier** and has a much larger benchmark raw-material cost. The thermal improvement is therefore insufficient to justify copper as the default material for this design.
 
-**Aluminium heat sink → optimise geometry → retain fixed TGP5000 TIM → consider copper only if additional thermal margin is still required.**
+From a manufacturing perspective, aluminium provides a practical extrusion-led route and easier integration due to its lower mass. The final strategy is therefore:
 
-The baseline and reduced heat-sink designs provide substantial thermal margin under the validated electrical operating conditions, while the high thermal-stress cases demonstrate where cooling geometry becomes increasingly important.
+**60 mm aluminium heat sink → fixed TGP5000 TIM → extrusion/cut-to-length manufacturing route → use 40 mm only for mass/volume-constrained normal-load applications → use copper only if a small additional thermal margin is worth the mass and cost penalty.**
 
 ## Assumptions
 
