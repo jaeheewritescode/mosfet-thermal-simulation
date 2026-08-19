@@ -1,0 +1,4 @@
+Geometry,Base_Length_mm,Base_Width_mm,Base_Thickness_mm,Number_of_Fins,Fin_Dimensions_mm,Total_Volume_cm3,Aluminium_Mass_kg,Copper_Mass_kg,Mass_Reduction_vs_Original_pct
+Original,80,50,5,8,5.5x50x50,130.0,0.3510,1.1648,0
+Geometry 1,60,50,5,6,5.5x50x50,97.5,0.26325,0.8736,25
+Geometry 2,40,50,5,4,5.5x50x50,65.0,0.1755,0.5824,50
