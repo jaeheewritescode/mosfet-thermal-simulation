@@ -33,11 +33,11 @@ geometry_data = pd.DataFrame({
     "Mass reduction vs Original (%)": [0, 25, 50],
 })
 
-AL_PRICE_PER_KG = 3.270
-CU_PRICE_PER_KG = 14.912
+AL_PRICE_PER_KG = 2.31
+CU_PRICE_PER_KG = 9.89
 
-geometry_data["Aluminium raw material cost (USD)"] = geometry_data["Aluminium mass (kg)"] * AL_PRICE_PER_KG
-geometry_data["Copper raw material cost (USD)"] = geometry_data["Copper mass (kg)"] * CU_PRICE_PER_KG
+geometry_data["Aluminium raw material cost (GBP)"] = geometry_data["Aluminium mass (kg)"] * AL_PRICE_PER_KG
+geometry_data["Copper raw material cost (GBP)"] = geometry_data["Copper mass (kg)"] * CU_PRICE_PER_KG
 
 # Sidebar
 st.sidebar.header("Operating Point")
@@ -89,16 +89,16 @@ selected_geo_row = geometry_data[geometry_data["Geometry"] == selected_geometry]
 
 if material == "Aluminium":
     selected_mass = selected_geo_row["Aluminium mass (kg)"]
-    selected_cost = selected_geo_row["Aluminium raw material cost (USD)"]
+    selected_cost = selected_geo_row["Aluminium raw material cost (GBP)"]
 else:
     selected_mass = selected_geo_row["Copper mass (kg)"]
-    selected_cost = selected_geo_row["Copper raw material cost (USD)"]
+    selected_cost = selected_geo_row["Copper raw material cost (GBP)"]
 
 g1, g2, g3, g4 = st.columns(4)
 g1.metric("Base Length", f'{selected_geo_row["Base length (mm)"]:.0f} mm')
 g2.metric("Number of Fins", f'{selected_geo_row["Number of fins"]:.0f}')
 g3.metric("Heat-Sink Mass", f"{selected_mass:.3f} kg")
-g4.metric("Estimated Raw-Material Cost", f"${selected_cost:.2f}")
+g4.metric("Estimated Raw-Material Cost", f"£{selected_cost:.2f}")
 
 st.caption(
     "Raw-material cost only. This excludes extrusion, machining, surface finishing, "
@@ -113,8 +113,8 @@ st.bar_chart(
 st.write("**Raw-material cost comparison**")
 st.bar_chart(
     geometry_data.set_index("Geometry")[[
-        "Aluminium raw material cost (USD)",
-        "Copper raw material cost (USD)"
+        "Aluminium raw material cost (GBP)",
+        "Copper raw material cost (GBP)"
     ]]
 )
 
