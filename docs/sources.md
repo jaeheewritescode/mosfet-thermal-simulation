@@ -1,15 +1,74 @@
 # Sources
 
-The mass/cost/manufacturability extension uses the following engineering references. Prices are benchmark snapshots used only for relative material comparison, not supplier quotations.
+This file lists the main external sources used to support the electrical, thermal, manufacturability, and raw-material cost assumptions in the MOSFET electro-thermal simulation project.
 
-- Aluminum Association — Alloy 6061 density / general 6xxx-series properties: https://www.aluminum.org/sites/default/files/2021-10/6061CombustibilityReport.pdf
-- Aluminum Association — 6xxx-series extrusion/industry information: https://www.aluminum.org/standards
-- Copper Development Association — C11000 high-conductivity copper properties: https://alloys.copper.org/alloy/C11000
-- Hydro — 6061-T6 extrudability and machinability: https://www.hydro.com/us/us/aluminum/products/extruded-profiles/north-america-resources/extruded-aluminum-products/aluminum-extrusion-alloys/6061-t6-aluminum-properties/
-- London Metal Exchange — official-price methodology/reference data: https://www.lme.com/market-data/reports-and-data/lme-official-prices
-- Reuters, 18 Aug 2026 — aluminium three-month benchmark around $3,270/t, used as the aluminium price snapshot: https://www.reuters.com/commentary/reuters-open-interest/china-eases-iran-war-aluminium-shock-cost-2026-08-18/
-- Reuters, 19 Aug 2026 — copper cash price $14,912/t, used as the copper price snapshot: https://www.reuters.com/commentary/reuters-open-interest/lme-gripped-by-flash-squeeze-copper-tensions-boil-over-2026-08-19/
+Project-generated results such as ANSYS temperatures, calculated junction temperatures, heat-sink volumes, masses, mass reductions, and final engineering recommendations are not external references and therefore are not listed here as source material.
 
-## Cost-model caveat
+## MOSFET and Electrical Modelling
 
-The project calculates only **raw material content cost = mass × benchmark price per kg**. It excludes extrusion/machining conversion cost, tooling, cutting, finishing, scrap, labour, overhead, transport, supplier margin, minimum-order effects and taxes.
+1. **Infineon Technologies / International Rectifier — IRFZ44NPbF Product Data Sheet**  
+   Used for MOSFET electrical and thermal parameters including on-state resistance, switching characteristics, maximum junction temperature, and junction-to-case thermal resistance.  
+   https://www.infineon.com/assets/row/public/documents/24/49/infineon-irfz44n-datasheet-en.pdf
+
+2. **Analog Devices — AN-140: Basic Concepts of Linear Regulator and Switching Mode Power Supplies**  
+   Used to support the ideal buck-converter relationship between input voltage, output voltage, and duty cycle.  
+   https://www.analog.com/en/resources/app-notes/an-140.html
+
+3. **Texas Instruments — Power MOSFET Gate Driver Bias Optimization, SLUA958**  
+   Used to support the MOSFET conduction-loss and switching-loss equations used in the analytical electrical model.  
+   https://www.ti.com/lit/ug/slua958/slua958.pdf
+
+4. **Analog Devices — LTspice Simulator**  
+   Used as the official reference for the LTspice electrical simulation environment.  
+   https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html
+
+## Thermal Modelling
+
+5. **Ansys — Getting Started with Mechanical: Steady-State Thermal Solution – Heat Sink**  
+   Used to support the steady-state thermal modelling approach and heat-sink simulation methodology in Ansys Mechanical.  
+   https://ansyshelp.ansys.com/
+
+6. **Ansys — Convection Heat Transfer**  
+   Used to support convection boundary-condition concepts and the convection thermal-resistance relationship.  
+   https://ansyshelp.ansys.com/
+
+7. **Infineon Technologies — Recommendations for Assembly of Infineon TO Packages**  
+   Used to support the series thermal-resistance network from semiconductor junction through the package, interface, heat sink, and ambient environment.  
+   https://www.infineon.com/assets/row/public/documents/24/42/infineon-applicationnote-package-recommendations-assembly-topackages-applicationnotes-en.pdf
+
+8. **Infineon Technologies — Infineon Small Signal MOSFETs: General Information**  
+   Used to support the relationship between dissipated power, thermal resistance, and junction-temperature rise.  
+   https://www.infineon.com/assets/row/public/documents/24/42/infineon-small-signal-products-applicationnotes-en.pdf
+
+## Manufacturability and Industrial Use
+
+9. **Hydro — 6061-T6 Aluminum Properties**  
+   Used to support the manufacturability discussion for aluminium 6061-T6, including extrusion suitability, machinability, and industrial heat-sink applications.  
+   https://www.hydro.com/us/us/aluminum/products/extruded-profiles/north-america-resources/extruded-aluminum-products/aluminum-extrusion-alloys/6061-t6-aluminum-properties/
+
+## Raw-Material Cost Data
+
+10. **World Bank — World Bank Commodities Price Data (The Pink Sheet), August 2026**  
+    Used for the July 2026 aluminium and copper benchmark commodity prices. The World Bank reports aluminium at **US$3,161 per metric tonne** and copper at **US$13,543 per metric tonne** for July 2026. These values were converted to GBP for the project cost comparison.  
+    https://www.worldbank.org/en/research/commodity-markets
+
+## Cost-Model Caveat
+
+The project estimates only:
+
+**Raw-material cost = heat-sink mass × benchmark material price per kg**
+
+The calculated values are intended for comparative engineering analysis only. They do **not** represent finished heat-sink purchase prices and exclude extrusion, machining, cutting, tooling, surface finishing, scrap, labour, transport, supplier margin, taxes, and production-volume effects.
+
+## Notes on Project-Derived Results
+
+The following values are outputs of this project and therefore do not require external references:
+
+- ANSYS case-temperature results
+- calculated MOSFET junction temperatures
+- calculated heat-sink volumes
+- aluminium and copper heat-sink masses
+- 25% and 50% geometry mass reductions
+- raw-material cost calculations after applying the sourced benchmark price
+- thermal-margin comparisons
+- final geometry and material engineering recommendation

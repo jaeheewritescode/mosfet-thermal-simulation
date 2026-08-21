@@ -154,7 +154,7 @@ The thermal comparison was extended using the actual solid dimensions of the hea
 | Geometry 1 — 60 mm | 97.5 cm³ | 0.263 kg | 0.874 kg | 25% |
 | Geometry 2 — 40 mm | 65 cm³ | 0.176 kg | 0.582 kg | 50% |
 
-For the same geometry, copper is approximately **3.32× heavier** than aluminium. The repository also includes a raw-material cost estimate based on an August 2026 benchmark snapshot (**$3.270/kg aluminium; $14.912/kg copper**). These values are used only for relative material comparison and do not represent finished heat-sink procurement cost. Manufacturing cost would additionally depend on extrusion/machining, tooling, finishing, labour, scrap, supplier margin and production volume.
+For the same geometry, copper is approximately **3.32× heavier** than aluminium. The repository also includes a raw-material cost estimate based on an August 2026 benchmark snapshot (**£2.31/kg aluminium; £9.89/kg copper**). These values are used only for relative material comparison and do not represent finished heat-sink procurement cost. Manufacturing cost would additionally depend on extrusion/machining, tooling, finishing, labour, scrap, supplier margin and production volume.
 
 Mass materially changes the geometry decision. Geometry 2 is 50% lighter than the original aluminium design, but at 15 W it reaches **129.400°C**, above the 125°C project target. Geometry 1 is 25% lighter than the original and remains at **111.831°C** at 15 W, making it the stronger balanced design when both mass and high-load thermal margin matter.
 
