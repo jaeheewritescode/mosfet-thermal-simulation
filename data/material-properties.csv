@@ -1,3 +1,3 @@
-Material,Density_g_cm3,Thermal_Conductivity_W_mK,Benchmark_Raw_Metal_Price_GBP_per_kg,Price_Date,Price_Basis,Manufacturability,Notes
-Aluminium 6061-T6,2.70,170,2.31,2026-08-18,LME aluminium benchmark proxy,High,Low density; extrudable and machinable; suitable for heat-sink profiles
-Copper C11000,8.96,390,9.89,2026-08-19,LME copper cash-price benchmark proxy,Moderate,High conductivity but much greater mass and material cost for equal geometry
+Material,Density_g_cm3,Thermal_Conductivity_W_mK,World_Bank_July_2026_USD_per_mt,BOE_July_2026_USD_per_GBP,Benchmark_Raw_Metal_Price_GBP_per_kg,Price_Month,Price_Basis,Manufacturability,Notes
+Aluminium 6061-T6,2.70,170,3161,1.3379,2.362658,2026-07,World Bank July 2026 aluminium monthly average converted using Bank of England July 2026 monthly-average £1=US$1.3379,High,"Low density; straight-fin aluminium profiles are extrusion-compatible, but changing width/fin count changes the cross-section"
+Copper C11000,8.96,390,13543,1.3379,10.122580,2026-07,World Bank July 2026 copper monthly average converted using Bank of England July 2026 monthly-average £1=US$1.3379,Moderate,Higher conductivity but much greater equal-geometry mass and raw-material cost

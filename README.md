@@ -1,275 +1,260 @@
 # Electro-Thermal Optimisation of a Power MOSFET Cooling System
 
-## Project Overview
+## Engineering Problem
 
-This project investigates the electro-thermal behaviour and cooling requirements of an IRFZ44N power MOSFET used in a 24 V to 12 V buck converter.
+This project investigates the cooling of an **IRFZ44N power MOSFET** in a **24 V to 12 V non-synchronous buck converter**. MOSFET conduction and switching losses become heat; as junction temperature rises, `RDS(on)` also rises, which increases conduction loss and creates positive electro-thermal feedback.
 
-The project combines:
+The engineering problem is therefore not simply to produce the lowest possible temperature. A larger or more conductive heat sink can improve thermal performance, but it can also increase **mass, raw-material cost, packaging burden and manufacturing complexity**.
 
-- analytical MOSFET loss calculations,
-- LTspice electrical simulation,
-- ANSYS steady-state thermal simulation,
-- temperature-dependent MOSFET resistance,
-- iterative electro-thermal coupling,
-- heat-sink material comparison,
-- heat-sink geometry comparison,
-- thermal-stress analysis, and
-- a Streamlit dashboard for presenting the final validated results.
+The project asks:
 
-The main engineering objective is to determine how electrical loading, MOSFET power loss, heat-sink material and heat-sink geometry affect junction temperature and thermal safety.
+> **Which passive heat-sink material and tested geometry provide the most practical solution while maintaining the required thermal margin?**
 
-## Key Findings
+### Why dedicated cooling is required
 
-- Cooling is essential: the 10 A no-heat-sink case exceeds the **175°C device limit**.
-- All cooled **5 A, 10 A and 20 A** operating points remain below the **125°C project target**.
-- Electro-thermal feedback becomes increasingly significant at higher current.
-- Copper provides only a modest junction-temperature improvement over aluminium, while the same geometry is approximately **3.32× heavier**.
-- The 60 mm aluminium geometry reduces heat-sink mass by **25%** relative to the original while remaining below the 125°C target at 15 W.
-- The 40 mm aluminium geometry reduces mass by **50%**, but exceeds the 125°C project target at 15 W.
-- Heat-sink geometry has a stronger influence than material under high thermal demand.
-- At 20 A, the aluminium MOSFET loss increases from approximately **4.760 W one-pass** to **5.371 W coupled**, showing a feedback increase of about **12.8%**.
-- Under a 15 W thermal-stress load, the 60 mm geometry is approximately **17.6–17.9°C cooler** than the 40 mm geometry.
-- The current preferred design strategy is **aluminium + geometry optimisation + fixed TGP5000 TIM**.
+The 10 A coupled no-heat-sink reference exceeds the **175°C absolute device limit**, while the baseline aluminium heat sink holds the coupled 10 A junction temperature to approximately **33.1°C**.
 
-## Electrical Operating Conditions
+| 10 A cooling configuration | Junction temperature | Result |
+|---|---:|---|
+| No heat sink | 183.84°C | Exceeds 175°C device limit |
+| 80 mm aluminium heat sink | 33.11°C | Large thermal margin |
+| 80 mm copper heat sink | 32.90°C | Large thermal margin |
 
-The electrically derived converter operating points are:
+This establishes the problem before optimisation: **a heat sink is necessary, but unnecessary heat-sink material should be avoided.**
 
-| Parameter | Value |
-|---|---:|
-| Input voltage | 24 V |
-| Output voltage | 12 V |
-| Switching frequency | 50 kHz |
-| Duty cycle | 0.5 |
-| MOSFET | IRFZ44N |
-| Gate voltage | 10 V |
-| Rise time | 60 ns |
-| Fall time | 45 ns |
-| Inductor | 40 µH |
-| Electrical load currents | 5 A, 10 A, 20 A |
+## Fixed Scope
 
-Two values of MOSFET Rds(on) are intentionally used:
+The final project deliberately keeps the thermal interface fixed so that heat-sink material and geometry can be compared cleanly.
 
-- **0.0139 Ω** for direct analytical comparison with the LTspice MOSFET model.
-- **0.0175 Ω** as the conservative datasheet maximum at 25°C for thermal and electro-thermal analysis.
+- Converter: 24 V to 12 V non-synchronous buck converter
+- MOSFET: IRFZ44N
+- Electrical operating points: 5 A, 10 A and 20 A
+- Cooling mode: passive natural convection
+- Ambient temperature: 25°C
+- TIM: **TGP5000, 1.5 mm, 5 W/mK - fixed for all heat-sink comparisons**
+- Heat-sink materials: aluminium 6061-T6 and copper C11000
+- Tested aluminium/copper geometries: 80 mm / 8 fins, 60 mm / 6 fins and 40 mm / 4 fins
+- Thermal-stress loads: imposed 10 W and 15 W cases
 
-## Modelling Workflow
+**Not investigated:** TIM optimisation, aluminium/copper hybrid construction, forced-air CFD, liquid cooling, physical hardware, detailed semiconductor-chip modelling or continuous topology optimisation.
 
-The project follows the modelling chain:
+## Design Requirement and Optimisation Objective
 
-**Converter operating point → MOSFET electrical loss → temperature-dependent Rds(on) → thermal model → junction temperature → updated MOSFET loss**
+The final design decision is formulated as a **discrete constrained optimisation** rather than a subjective "best compromise".
 
-MOSFET conduction loss is estimated using:
+### Thermal design requirement
 
-**Pcond = I² × Rds(on) × D**
+> **Maintain MOSFET junction temperature `Tj <= 125°C` at 15 W imposed thermal dissipation and 25°C ambient temperature.**
 
-Switching loss is estimated using:
+- **125°C** is the project design target.
+- **175°C** is treated as the absolute IRFZ44N junction-temperature limit, not a recommended operating target.
+- **15 W** is an imposed thermal-stress case used to test cooling capability and scalability. It is not assigned to a converter current unless independently produced by the electrical model.
 
-**Psw = 0.5 × Vin × I × (tr + tf) × fs**
+### Optimisation objective
 
-The electrical and thermal models are coupled iteratively so that increased junction temperature raises Rds(on), which increases conduction loss and therefore produces additional heat.
+> **Among the tested aluminium heat-sink geometries, minimise heat-sink mass and raw-material use subject to the 125°C thermal constraint.**
 
-The coupling continues until the junction-temperature change between iterations is below **0.1°C**.
+This is a **discrete parametric optimisation across three tested candidates**, not a continuous fin/topology optimisation.
 
-## Final Electrical Results
+## Simulation Workflow
 
-The final coupled electrical results for the baseline heat-sink geometry are:
+The project follows one connected engineering chain:
 
-| Current | Material | MOSFET loss (W) | Junction temperature (°C) | MOSFET-loss-based efficiency (%) | Margin to 125°C (°C) |
-|---:|---|---:|---:|---:|---:|
-| 5 A | Aluminium | 0.537 | 27.82 | 99.11 | 97.18 |
-| 10 A | Aluminium | 1.548 | 33.11 | 98.73 | 91.89 |
-| 20 A | Aluminium | 5.371 | 53.14 | 97.81 | 71.86 |
-| 5 A | Copper | 0.537 | 27.75 | 99.11 | 97.26 |
-| 10 A | Copper | 1.546 | 32.90 | 98.73 | 92.10 |
-| 20 A | Copper | 5.349 | 52.32 | 97.82 | 72.68 |
+**Electrical operating condition -> MOSFET loss -> temperature-dependent RDS(on) -> thermal response -> updated junction temperature -> design screening -> constrained geometry selection -> scalability assessment**
 
-All cooled electrical operating points remain below the **125°C project junction-temperature target**.
+Tools used:
 
-The efficiency values reported here include MOSFET loss only and therefore should not be interpreted as complete converter efficiency.
+- **LTspice** - buck-converter electrical simulation
+- **Python** - analytical loss model, electro-thermal coupling and engineering assessment
+- **ANSYS Steady-State Thermal** - heat-sink thermal simulations
 
-## Thermal-Stress Cases
+The electrically derived 5 A / 10 A / 20 A cases are kept separate from the imposed 10 W / 15 W thermal-stress cases.
 
-Two additional heat loads were imposed directly in the thermal model:
+## Electrical Operating Envelope
 
-- **10 W**
-- **15 W**
+For the baseline aluminium heat sink, the final coupled results are:
 
-These cases are intentionally separate from the electrically derived 5 A, 10 A and 20 A converter operating points.
-
-### Why the Thermal-Stress Cases Are Separate
-
-The 10 W and 15 W values are **not calculated MOSFET losses corresponding to specific converter currents**.
-
-They are imposed thermal loads used to investigate how the cooling system behaves when heat generation becomes substantially greater than the validated electrical operating range.
-
-They therefore provide evidence of:
-
-- cooling-system scalability,
-- reduced thermal margin at high heat load,
-- increasing importance of heat-sink geometry, and
-- increasing relevance of material thermal conductivity.
-
-They should not be interpreted as statements such as "10 W corresponds to a particular converter current".
-
-### Baseline Thermal-Stress Results
-
-| Heat load | Aluminium Tj (°C) | Copper Tj (°C) | Aluminium margin to 125°C | Copper margin to 125°C |
+| Current | One-pass loss | Coupled loss | Coupled Tj | Margin to 125°C |
 |---:|---:|---:|---:|---:|
-| 10 W | 77.390 | 76.082 | 47.610°C | 48.918°C |
-| 15 W | 103.595 | 101.624 | 21.405°C | 23.376°C |
+| 5 A | 0.534 W | 0.537 W | 27.82°C | 97.18°C |
+| 10 A | 1.505 W | 1.548 W | 33.11°C | 91.89°C |
+| 20 A | 4.760 W | 5.371 W | 53.14°C | 71.86°C |
 
-Copper consistently reduces junction temperature, but the improvement remains relatively small compared with the effect produced by changing heat-sink geometry.
+Electro-thermal feedback becomes increasingly important as current rises. At 20 A, the coupled loss is approximately **12.8% higher** than the one-pass 25°C estimate.
 
-## Heat-Sink Geometry Study
+The reported efficiency is **MOSFET-loss-based efficiency**, not full converter efficiency.
 
-Three heat-sink sizes were considered:
+## Coupling Robustness
 
-- **80 mm baseline geometry**
-- **60 mm reduced geometry**
-- **40 mm reduced geometry**
+The 20 A aluminium coupled case was also started from three different initial junction-temperature guesses. All converged to essentially the same solution:
 
-The reduced geometries were introduced to investigate whether the original heat sink was oversized for the normal electrical operating conditions.
+| Initial Tj | Final Tj | Final MOSFET loss | Iterations |
+|---:|---:|---:|---:|
+| 25°C | 53.141°C | 5.371 W | 4 |
+| 75°C | 53.161°C | 5.375 W | 4 |
+| 125°C | 53.156°C | 5.374 W | 5 |
 
-At the 1.505 W baseline heat load, the temperature difference between the reduced geometries is relatively small.
+The final temperatures differ by less than **0.02°C**, supporting numerical robustness of the coupled fixed-point solution to the initial temperature guess.
 
-Under the 15 W thermal-stress condition, however, the effect of geometry becomes much stronger.
+## Material Screening
 
-| Geometry | Aluminium Tj at 15 W | Copper Tj at 15 W |
+Material selection is treated as a **screening step before geometry optimisation**.
+
+At the 15 W baseline geometry:
+
+| Material | Tj | Equal-geometry mass | Raw-material cost |
+|---|---:|---:|---:|
+| Aluminium | 103.595°C | 0.351 kg | £0.829 |
+| Copper | 101.624°C | 1.165 kg | £11.791 |
+
+Copper improves junction temperature by only **1.97°C**, while the same geometry is approximately **3.32x heavier** and has a much larger benchmark raw-material cost. Aluminium is therefore selected as the default system-level material for the geometry optimisation.
+
+## Discrete Constrained Geometry Optimisation
+
+The three aluminium candidates are evaluated against the 15 W / 125°C design requirement:
+
+| Candidate | Tj at 15 W | Margin to 125°C | Mass | Mass reduction | Raw-material cost | Feasible? |
+|---|---:|---:|---:|---:|---:|---|
+| Original - 80 mm / 8 fins | 103.595°C | +21.405°C | 0.351 kg | 0% | £0.829 | Yes |
+| **Geometry 1 - 60 mm / 6 fins** | **111.831°C** | **+13.169°C** | **0.263 kg** | **25%** | **£0.622** | **Yes** |
+| Geometry 2 - 40 mm / 4 fins | 129.400°C | -4.400°C | 0.176 kg | 50% | £0.415 | No |
+
+### Optimisation result
+
+**Geometry 1 (60 mm aluminium) is the minimum-mass tested aluminium design that satisfies the 125°C requirement at 15 W.**
+
+- The 80 mm design passes, but uses 33% more mass than Geometry 1.
+- The 40 mm design is lighter, but violates the thermal requirement.
+- The 60 mm design therefore has a clear engineering justification rather than being selected from temperature alone.
+
+At the controlled **1.505 W fixed heat load**, the original / 60 mm / 40 mm aluminium temperatures are **32.885°C / 33.713°C / 35.475°C**. Reducing the sink from 80 mm to 60 mm therefore removes **25% of the mass for only about 0.83°C temperature penalty** at the baseline heat load.
+
+## Scalability
+
+### Electrical scalability
+
+The 5 A -> 10 A -> 20 A study shows that increasing current raises MOSFET loss nonlinearly and makes temperature-dependent `RDS(on)` feedback more important. This defines the electrically derived operating envelope without inventing additional current cases.
+
+### Cooling-system scalability
+
+At approximately steady, fixed-property conditions, geometry differences are best interpreted through thermal resistance: as heat load increases, the same resistance difference produces a larger **absolute temperature penalty**, so geometry selection becomes more consequential as the design approaches its thermal constraint.
+
+Using each aluminium design's 15 W FEA temperature to estimate effective thermal resistance:
+
+| Geometry | Effective Rth from 15 W result | Estimated heat load at 125°C |
 |---|---:|---:|
-| 60 mm | 111.831°C | 110.259°C |
-| 40 mm | 129.400°C | 128.140°C |
+| 80 mm | 5.240°C/W | 19.09 W |
+| 60 mm | 5.789°C/W | 17.27 W |
+| 40 mm | 6.960°C/W | 14.37 W |
 
-The 60 mm heat sink therefore gives approximately **17.6–17.9°C lower junction temperature** than the 40 mm heat sink at 15 W.
+These are **estimated thermal-capacity thresholds**, not experimentally verified limits. They show the order in which the designs lose compliance as required heat dissipation increases.
 
-This demonstrates that geometry becomes increasingly important as thermal demand increases.
+## Natural-Convection Uncertainty
 
-## Mass, Cost and Manufacturability
+Natural convection is a major uncertainty in passive cooling. A first-order analytical sensitivity uses the documented geometry, fixed TIM and aluminium properties while varying the convection coefficient `h`.
 
-The thermal comparison was extended using the actual solid dimensions of the heat-sink base and fins. Each fin is **5.5 × 50 × 50 mm**. The original, Geometry 1 and Geometry 2 designs use **8, 6 and 4 fins**, respectively.
+| Aluminium geometry | Tj at h=5 W/m²K | Tj at h=10 W/m²K | Tj at h=15 W/m²K |
+|---|---:|---:|---:|
+| 80 mm | 134.6°C | 106.7°C | 97.4°C |
+| 60 mm | 153.0°C | 115.9°C | 103.5°C |
+| 40 mm | 189.5°C | 134.1°C | 115.7°C |
 
-| Geometry | Total volume | Aluminium mass | Copper mass | Reduction vs original |
-|---|---:|---:|---:|---:|
-| Original — 80 mm | 130 cm³ | 0.351 kg | 1.165 kg | 0% |
-| Geometry 1 — 60 mm | 97.5 cm³ | 0.263 kg | 0.874 kg | 25% |
-| Geometry 2 — 40 mm | 65 cm³ | 0.176 kg | 0.582 kg | 50% |
+This sensitivity is intentionally conservative and first-order; it is not a replacement for ANSYS. It shows that the final recommendation is **conditional on the natural-convection environment**. At the baseline project assumption `h = 10 W/m²K`, the 60 mm design remains feasible while the 40 mm design does not. Under weak convection (`h = 5 W/m²K`), none of the tested passive designs meets the 125°C / 15 W requirement.
 
-For the same geometry, copper is approximately **3.32× heavier** than aluminium. The repository also includes a raw-material cost estimate based on an August 2026 benchmark snapshot (**£2.31/kg aluminium; £9.89/kg copper**). These values are used only for relative material comparison and do not represent finished heat-sink procurement cost. Manufacturing cost would additionally depend on extrusion/machining, tooling, finishing, labour, scrap, supplier margin and production volume.
+## Manufacturability and Industrial Scalability
 
-Mass materially changes the geometry decision. Geometry 2 is 50% lighter than the original aluminium design, but at 15 W it reaches **129.400°C**, above the 125°C project target. Geometry 1 is 25% lighter than the original and remains at **111.831°C** at 15 W, making it the stronger balanced design when both mass and high-load thermal margin matter.
+The heat sinks use straight fins and are compatible with an extrusion-led aluminium manufacturing route. However, the 80 / 60 / 40 mm dimension is the dimension **across which the fins are distributed**, and the fin count changes 8 -> 6 -> 4. The three candidates therefore do **not** represent one identical extrusion cross-section simply cut to different lengths.
 
-### Manufacturability and Industrial Use
+A realistic manufacturing interpretation is:
 
-Aluminium 6061-T6 is compatible with extrusion and secondary machining. Because the investigated designs retain a similar straight-fin cross-section, an industrial implementation could use an extruded heat-sink profile, cut it to the required length, machine mounting/contact features, apply any required finish, and assemble the MOSFET/TIM. This supports scalable production while reducing material use in the 60 mm and 40 mm variants.
+- a custom extruded profile can be used for a selected production design,
+- changing base width and fin count changes the cross-section and can require a different die/profile,
+- low-volume prototypes may be produced by machining or trimming suitable standard stock,
+- high production volume can justify a dedicated extrusion die for the final selected geometry,
+- the lower mass of the 60 mm aluminium design reduces material use, handling and mounting burden compared with the 80 mm baseline.
 
-Copper remains technically viable where its higher conductivity is valuable, but its substantially greater mass and raw-material cost make it harder to justify for this application given the comparatively small thermal improvement.
+Copper remains technically viable when a small extra temperature reduction is worth the mass and material-cost penalty, but it is not the preferred material for this application.
 
-## Final Case Matrix
+## Estimated Current Thresholds
 
-| Case group | Electrical current | Heat load | Material | Geometry | Purpose |
-|---|---|---|---|---|---|
-| Electrical | 5 A | Electrically derived | Aluminium / Copper | 80 mm baseline | Low-load coupled operation |
-| Electrical | 10 A | Electrically derived | Aluminium / Copper | 80 mm baseline | Baseline coupled operation |
-| Electrical | 20 A | Electrically derived | Aluminium / Copper | 80 mm baseline | High-load coupled operation |
-| No heat sink | 10 A | Electrically derived | None | None | Demonstrate cooling requirement |
-| Thermal stress | N/A | 10 W | Aluminium / Copper | 80 mm baseline | Cooling scalability |
-| Thermal stress | N/A | 15 W | Aluminium / Copper | 80 mm baseline | Extreme thermal demand |
-| Geometry | N/A | 1.505 W | Aluminium / Copper | 60 mm / 40 mm | Geometry comparison at baseline heat load |
-| Geometry stress | N/A | 15 W | Aluminium / Copper | 60 mm / 40 mm | Geometry comparison at high thermal demand |
+The repository also estimates the current at which each aluminium geometry reaches 125°C or 175°C using the coupled electrical model and interpolation/extrapolation of available thermal data.
 
-The matrix deliberately separates electrically derived operating points from imposed thermal-stress cases.
+These results are intentionally labelled **estimated current thresholds**, not "safe current limits", because the 60 mm and 40 mm models have fewer ANSYS heat-load points and values above the simulated range require extrapolation.
 
-## Repository Structure
+See `results/engineering_assessment.ipynb` for the calculation and limitations.
 
-- `electrical-model/` — analytical MOSFET loss calculations and LTspice validation
-- `thermal-model/` — thermal-resistance validation, geometry studies and ANSYS-related analysis
-- `coupled-simulation/` — iterative electro-thermal coupling model
-- `data/` — validated electrical and thermal input datasets
-- `results/` — engineering assessment, master results CSV and Streamlit dashboard
-- `references/` — datasheets and supporting engineering sources
+## Validation Status
 
-The final validated project outputs are consolidated in:
+Completed checks include:
 
-`results/master_results.csv`
+- analytical thermal-resistance estimate versus ANSYS baseline: approximately **1% difference**,
+- coupled 5 A / 10 A / 20 A operating solutions,
+- convergence robustness from multiple starting temperatures,
+- controlled material and geometry comparisons,
+- separation of electrically derived and imposed thermal-stress cases.
 
-The Streamlit dashboard also uses this frozen dataset so that the displayed outputs remain consistent with the final engineering assessment.
+Still to be completed in the final validation pass:
 
-## Engineering Recommendation
+- refinement of the analytical-versus-LTspice loss discrepancy,
+- quantitative three-level mesh-independence evidence,
+- ANSYS energy-balance evidence.
 
-Considering **thermal performance, mass, raw-material cost and manufacturability together**, the preferred general-purpose design is **Geometry 1: a 60 mm aluminium 6061-T6 heat sink with the fixed TGP5000 TIM**.
-
-The 60 mm aluminium design reduces heat-sink mass by **25%** relative to the original 80 mm geometry (**0.263 kg vs 0.351 kg**) while maintaining an estimated junction temperature of **111.831°C at the imposed 15 W stress load**, leaving approximately **13.17°C margin** to the 125°C project target.
-
-The 40 mm Geometry 2 design is the strongest lightweight/compact option, reducing aluminium mass by **50%** to approximately **0.176 kg**. Its baseline thermal penalty is small, but its junction temperature reaches **129.400°C at 15 W**, so it is not the preferred design if the 125°C stress target must be maintained.
-
-Copper produces slightly lower junction temperatures, but the same geometry is approximately **3.32× heavier** and has a much larger benchmark raw-material cost. The thermal improvement is therefore insufficient to justify copper as the default material for this design.
-
-From a manufacturing perspective, aluminium provides a practical extrusion-led route and easier integration due to its lower mass. The final strategy is therefore:
-
-**60 mm aluminium heat sink → fixed TGP5000 TIM → extrusion/cut-to-length manufacturing route → use 40 mm only for mass/volume-constrained normal-load applications → use copper only if a small additional thermal margin is worth the mass and cost penalty.**
-
-## Assumptions
-
-The principal assumptions used in the project are:
-
-- Ambient temperature is fixed at **25°C**.
-- Natural convection is represented using **h = 10 W/m²K**.
-- TGP5000 TIM is fixed at **1.5 mm thickness** and **5 W/mK thermal conductivity**.
-- MOSFET RθJC is taken as **1.5°C/W** for junction-temperature correction.
-- Electrical switching loss is estimated using a simplified linear switching-overlap equation.
-- Temperature dependence is represented primarily through MOSFET Rds(on).
-- LTspice uses an idealised gate-drive source.
-- ANSYS steady-state thermal analysis is used rather than transient thermal simulation.
-- Validated ANSYS thermal-response data are interpolated during electro-thermal coupling instead of rerunning ANSYS at every iteration.
-- The 10 W and 15 W cases are imposed thermal loads rather than electrically derived MOSFET losses.
-
-## Limitations
-
-The main limitations are:
-
-- No physical hardware testing was performed.
-- Analytical switching-loss equations simplify real switching behaviour.
-- LTspice and analytical loss estimates do not match exactly because they model MOSFET switching differently.
-- MOSFET-loss-based efficiency excludes diode, inductor, capacitor, PCB and gate-driver losses.
-- The thermal model simplifies some package and contact details.
-- Natural convection is represented using a fixed heat-transfer coefficient.
-- Current-sweep results become less certain where thermal-response extrapolation is required.
-- Cost, mass and manufacturability are not yet fully quantified.
-- The results should therefore be interpreted as engineering simulation estimates rather than experimentally verified device ratings.
+These items are kept explicit rather than claiming validation evidence that is not yet stored in the repository.
 
 ## Reproducibility
 
-The project is structured so that the main downstream analysis can be regenerated using the saved validated datasets.
+The repository contains:
 
-The main Python workflow consists of:
+- the LTspice schematic: `electrical-model/BUCK_converter.asc`,
+- analytical and electro-thermal Python notebooks,
+- frozen CSV input/result datasets,
+- ANSYS result screenshots and documented boundary conditions,
+- a `requirements.txt` file for the Python environment.
 
-1. MOSFET loss equations and assumptions
-2. Temperature-dependent MOSFET resistance
-3. Analytical and LTspice electrical-loss comparison
-4. Analytical thermal-resistance validation
-5. Electro-thermal coupling
-6. Engineering assessment
-7. Streamlit results dashboard
+The full ANSYS project/archive will be added by the materials collaborator when available. Until then, `thermal-model/ansys/README.md` records the model inputs and file handoff status.
 
-Validated ANSYS results are stored as project data and are used as inputs to the coupling model.
+## Final Recommendation
 
-The Streamlit dashboard reads the frozen `master_results.csv` dataset and presents:
+For the defined project conditions:
 
-- MOSFET loss
-- MOSFET-loss-based efficiency
-- junction temperature
-- margin to the 125°C project target
-- margin to the 175°C absolute device limit
-- final cooling recommendation
+> **Use aluminium 6061-T6 with the 60 mm / 6-fin geometry and the fixed TGP5000 interface.**
 
-## Sources
+The recommendation is based on the following engineering chain:
 
-The project uses the following main engineering sources:
+1. A no-heat-sink design is thermally unacceptable at the 10 A reference condition.
+2. Copper provides only a small thermal improvement relative to its mass/cost penalty, so aluminium is screened in.
+3. The 40 mm aluminium design fails the 125°C requirement at 15 W.
+4. The 80 mm aluminium design passes but uses more material than required.
+5. The **60 mm aluminium design is the minimum-mass tested feasible design** at the defined 15 W stress requirement.
+6. Thermal-capacity and convection-sensitivity results define where that recommendation stops being valid as demand or ambient cooling conditions worsen.
 
-- **Infineon IRFZ44N datasheet** — MOSFET electrical parameters, maximum junction temperature, Rds(on), switching times and temperature dependence.
-- **LTspice IRFZ44N model** — waveform-based electrical simulation and MOSFET power-loss comparison.
-- **ANSYS steady-state thermal simulations** — heat-sink material, geometry and thermal-response results.
-- **TGP5000 thermal-interface material data** — TIM thermal conductivity and thickness.
-- Project-generated CSV datasets and Jupyter notebooks contain the frozen numerical inputs and validated simulation outputs.
+## Repository Structure
 
-Where datasheet curves are used, values extracted from graphical relationships are treated as engineering approximations rather than exact manufacturer-tabulated values.
+- `electrical-model/` - LTspice schematic, analytical MOSFET loss calculations and electrical evidence
+- `thermal-model/` - thermal-resistance validation, geometry study, ANSYS evidence and model handoff notes
+- `coupled-simulation/` - iterative electro-thermal coupling model and convergence robustness check
+- `materials/` - mass, raw-material cost and manufacturability analysis
+- `data/` - frozen inputs, case matrix and design data
+- `results/` - master results and final engineering assessment
+- `references/` - BibTeX bibliography
+- `docs/` - project brief and traceable sources
+
+`results/master_results.csv` is the final numerical source of truth for reported simulation cases.
+
+## Cost Basis
+
+World Bank July 2026 monthly-average commodity prices are **US$3,161/metric tonne aluminium** and **US$13,543/metric tonne copper**. The Bank of England July 2026 monthly-average exchange rate is **£1 = US$1.3379**.
+
+The resulting benchmark raw-material values used in this repository are:
+
+- Aluminium: **£2.363/kg**
+- Copper: **£10.123/kg**
+
+These are raw-material comparison values only; they exclude extrusion, machining, tooling, finishing, labour, scrap, transport, supplier margin and production-volume effects.
+
+## References
+
+See:
+
+- `docs/sources.md` for a readable source register,
+- `references/references.bib` for the BibTeX bibliography.

@@ -49,8 +49,18 @@ Project-generated results such as ANSYS temperatures, calculated junction temper
 ## Raw-Material Cost Data
 
 10. **World Bank — World Bank Commodities Price Data (The Pink Sheet), August 2026**  
-    Used for the July 2026 aluminium and copper benchmark commodity prices. The World Bank reports aluminium at **US$3,161 per metric tonne** and copper at **US$13,543 per metric tonne** for July 2026. These values were converted to GBP for the project cost comparison.  
+    Used for the July 2026 aluminium and copper monthly-average benchmark commodity prices: **US$3,161/metric tonne aluminium** and **US$13,543/metric tonne copper**.  
     https://www.worldbank.org/en/research/commodity-markets
+
+11. **Bank of England — Exchange rates against Sterling, July 2026 monthly average**  
+    Used to convert the World Bank US-dollar commodity prices into pounds sterling. The July 2026 monthly average is **£1 = US$1.3379**.  
+    https://www.bankofengland.co.uk/boeapps/database/Rates.asp?into=GBP&rateview=A
+
+The repository converts the benchmark prices using:
+
+**GBP/kg = (USD/metric tonne ÷ 1000) ÷ 1.3379**
+
+This gives approximately **£2.363/kg aluminium** and **£10.123/kg copper**.
 
 ## Cost-Model Caveat
 
