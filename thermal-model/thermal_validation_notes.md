@@ -16,17 +16,18 @@ The thermal-model settings below are reused for controlled comparisons unless a 
 
 - The 1.505 W aluminium baseline was compared with an independent thermal-resistance network.
 - Analytical Tj ≈ 33.22°C and ANSYS-derived Tj ≈ 32.88°C, a difference of about 1%.
-- Electrically derived and imposed thermal-stress loads are kept separate in the data files.
+- A three-level mesh-independence study was completed using global element sizes of **5.0 mm, 2.5 mm and 2.0 mm**.
+- The corresponding maximum temperatures were **30.628°C, 30.631°C and 30.633°C**.
+- The medium-to-fine change was approximately **0.0065%**, and the coarse-to-fine change approximately **0.0163%**, both far below the project criterion of 2%.
+- A 1.25 mm refinement was attempted but exceeded the ANSYS Student node/element limit; the already stabilised 5.0/2.5/2.0 mm sequence provides the retained mesh-convergence evidence.
+- The **2.5 mm medium mesh** is retained as the project compromise between computation and numerical accuracy.
+- Electrically derived and imposed/fixed thermal loads are kept separate in the data files.
 
-## Validation Evidence Still To Be Added
+The quantitative calculation and plot are stored in `mesh_independence.ipynb`.
 
-The following items are intentionally **not claimed as complete in the repository yet**:
+## Evidence Boundary
 
-- quantitative three-level mesh-independence table,
-- ANSYS energy-balance check,
-- final archived ANSYS project/model file from the materials collaborator.
-
-These will be added during the final validation stage. Until then, the repository should not describe mesh independence or energy balance as quantitatively demonstrated.
+A separate quantitative ANSYS energy-balance result is **not included or claimed** in the final validation evidence. The remaining repository artifact is the full archived ANSYS project/model file held by the materials collaborator.
 
 ## Controlled-Comparison Rule
 

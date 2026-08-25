@@ -40,19 +40,29 @@ Project-generated results such as ANSYS temperatures, calculated junction temper
    Used to support the relationship between dissipated power, thermal resistance, and junction-temperature rise.  
    https://www.infineon.com/assets/row/public/documents/24/42/infineon-small-signal-products-applicationnotes-en.pdf
 
+## Material and Thermal-Interface Properties
+
+9. **Henkel — BERGQUIST GAP PAD TGP 5000**  
+   Used for the fixed TIM conductivity of **5.0 W/mK** and to confirm that 1.5 mm lies within the published standard-thickness range.  
+   https://next.henkel-adhesives.com/us/en/products/thermal-management-materials/central-pdp.html/bergquist-gap-pad-tgp-5000/112226IB.html
+
+10. **Copper Development Association — C11000 Alloy**  
+    Used for grade-specific C11000 physical properties. The project uses **8.91 g/cm³** density. The thermal-conductivity input is retained as **390 W/mK**, a rounded project value close to the CDA grade data.  
+    https://alloys.copper.org/alloy/C11000
+
 ## Manufacturability and Industrial Use
 
-9. **Hydro — 6061-T6 Aluminum Properties**  
+11. **Hydro — 6061-T6 Aluminum Properties**  
    Used to support the manufacturability discussion for aluminium 6061-T6, including extrusion suitability, machinability, and industrial heat-sink applications.  
    https://www.hydro.com/us/us/aluminum/products/extruded-profiles/north-america-resources/extruded-aluminum-products/aluminum-extrusion-alloys/6061-t6-aluminum-properties/
 
 ## Raw-Material Cost Data
 
-10. **World Bank — World Bank Commodities Price Data (The Pink Sheet), August 2026**  
+12. **World Bank — World Bank Commodities Price Data (The Pink Sheet), August 2026**  
     Used for the July 2026 aluminium and copper monthly-average benchmark commodity prices: **US$3,161/metric tonne aluminium** and **US$13,543/metric tonne copper**.  
     https://www.worldbank.org/en/research/commodity-markets
 
-11. **Bank of England — Exchange rates against Sterling, July 2026 monthly average**  
+13. **Bank of England — Exchange rates against Sterling, July 2026 monthly average**  
     Used to convert the World Bank US-dollar commodity prices into pounds sterling. The July 2026 monthly average is **£1 = US$1.3379**.  
     https://www.bankofengland.co.uk/boeapps/database/Rates.asp?into=GBP&rateview=A
 

@@ -37,7 +37,7 @@ The final design is selected using thermal performance, mass, raw-material cost,
 
 TIM optimisation and aluminium/copper hybrid construction are outside the final project scope.
 
-The 10 W and 15 W cases are imposed thermal loads used to investigate cooling scalability. They are not assumed to correspond to a specific converter current.
+The 10 W and 15 W cases are imposed thermal loads used to investigate cooling scalability. The 15 W case is deliberately more demanding than the electrically derived loss envelope in this project so that cooling headroom and geometry separation can be assessed. These stress cases are not assumed to correspond to a specific converter current.
 
 ---
 
@@ -47,7 +47,7 @@ The selected passive cooling design must satisfy:
 
 **Tj ≤ 125°C at 15 W imposed thermal dissipation and 25°C ambient temperature.**
 
-The IRFZ44N maximum junction-temperature rating of **175°C** is treated as an absolute device limit rather than the desired design operating temperature.
+The **125°C target is project-defined to retain a 50°C engineering margin below the IRFZ44N 175°C absolute maximum junction-temperature rating**. It is not presented as an Infineon-recommended continuous operating temperature. The 175°C value is therefore treated as an absolute device limit rather than a design target.
 
 ---
 
@@ -58,7 +58,7 @@ The project follows a connected modelling chain:
 **Electrical operating point → MOSFET loss → junction temperature → temperature-dependent electrical loss → cooling design → engineering decision**
 
 1. Analytical and LTspice models estimate MOSFET conduction and switching losses.
-2. Ansys predicts heat-sink thermal response under natural convection.
+2. ANSYS predicts heat-sink thermal response under natural convection.
 3. Python couples temperature-dependent `RDS(on)` back into the electrical-loss model.
 4. Aluminium and copper are screened at equal geometry.
 5. Aluminium geometry candidates are evaluated under a defined thermal constraint.
@@ -134,7 +134,7 @@ The coupled 5 A, 10 A and 20 A operating points show how increasing current rais
 
 ### Cooling scalability
 
-The 10 W and 15 W thermal-stress cases and effective thermal-resistance estimates show how each geometry approaches the 125°C design constraint as heat dissipation increases.
+The controlled **1.505 W and 15 W geometry cases**, together with effective thermal-resistance estimates, show how each geometry approaches the 125°C design constraint as heat dissipation increases. The 10 W case provides an additional stress point for the baseline geometry.
 
 Approximate thermal-capacity thresholds are:
 
@@ -164,7 +164,7 @@ The larger analytical-versus-LTspice total-loss discrepancy was traced primarily
 
 ### Thermal validation
 
-The Ansys baseline result was compared with an analytical thermal-resistance model.
+The ANSYS baseline result was compared with an analytical thermal-resistance model.
 
 ### Mesh independence
 
@@ -235,4 +235,4 @@ Completed:
 
 Pending repository artifact:
 
-- full Ansys project/archive from the materials collaborator
+- full ANSYS project/archive from the materials collaborator

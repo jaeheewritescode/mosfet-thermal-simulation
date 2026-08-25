@@ -46,9 +46,9 @@ The final design decision is formulated as a **discrete constrained optimisation
 
 > **Maintain MOSFET junction temperature `Tj <= 125°C` at 15 W imposed thermal dissipation and 25°C ambient temperature.**
 
-- **125°C** is the project design target.
+- **125°C** is a project-defined engineering target selected to retain a **50°C margin** below the 175°C absolute maximum; it is not presented as an Infineon-recommended continuous operating temperature.
 - **175°C** is treated as the absolute IRFZ44N junction-temperature limit, not a recommended operating target.
-- **15 W** is an imposed thermal-stress case used to test cooling capability and scalability. It is not assigned to a converter current unless independently produced by the electrical model.
+- **15 W** is a deliberately demanding imposed thermal-stress design point, above the electrically derived loss envelope in this project, used to expose cooling headroom and distinguish the candidate geometries. It is not assigned to a converter current unless independently produced by the electrical model.
 
 ### Optimisation objective
 
@@ -105,9 +105,9 @@ At the 15 W baseline geometry:
 | Material | Tj | Equal-geometry mass | Raw-material cost |
 |---|---:|---:|---:|
 | Aluminium | 103.595°C | 0.351 kg | £0.829 |
-| Copper | 101.624°C | 1.165 kg | £11.791 |
+| Copper | 101.624°C | 1.158 kg | £11.725 |
 
-Copper improves junction temperature by only **1.97°C**, while the same geometry is approximately **3.32x heavier** and has a much larger benchmark raw-material cost. Aluminium is therefore selected as the default system-level material for the geometry optimisation.
+Copper improves junction temperature by only **1.97°C**, while the same geometry is approximately **3.30x heavier** and has a much larger benchmark raw-material cost. Aluminium is therefore selected as the default system-level material for the geometry optimisation.
 
 ## Discrete Constrained Geometry Optimisation
 
@@ -188,28 +188,37 @@ See `results/engineering_assessment.ipynb` for the calculation and limitations.
 Completed checks include:
 
 - analytical thermal-resistance estimate versus ANSYS baseline: approximately **1% difference**,
+- analytical-versus-LTspice electrical comparison, including waveform decomposition showing about **4% difference** in the 10 A conduction-loss component,
+- quantitative three-level mesh-independence study: **30.628°C / 30.631°C / 30.633°C** for 5.0 / 2.5 / 2.0 mm global element sizes, with a **0.0065%** medium-to-fine change,
 - coupled 5 A / 10 A / 20 A operating solutions,
 - convergence robustness from multiple starting temperatures,
 - controlled material and geometry comparisons,
+- natural-convection sensitivity, and
 - separation of electrically derived and imposed thermal-stress cases.
 
-Still to be completed in the final validation pass:
-
-- refinement of the analytical-versus-LTspice loss discrepancy,
-- quantitative three-level mesh-independence evidence,
-- ANSYS energy-balance evidence.
-
-These items are kept explicit rather than claiming validation evidence that is not yet stored in the repository.
+The repository does **not** claim experimental hardware validation. A separate quantitative ANSYS energy-balance result is also not claimed as part of the final evidence set. The remaining repository artifact is the full ANSYS project/archive held by the materials collaborator.
 
 ## Reproducibility
 
 The repository contains:
 
 - the LTspice schematic: `electrical-model/BUCK_converter.asc`,
+- LTspice run provenance: `electrical-model/LTspice_run_notes.md`,
 - analytical and electro-thermal Python notebooks,
 - frozen CSV input/result datasets,
 - ANSYS result screenshots and documented boundary conditions,
+- quantitative mesh-independence evidence in `thermal-model/mesh_independence.ipynb`, and
 - a `requirements.txt` file for the Python environment.
+
+The committed LTspice schematic preserves the **10 A baseline** load (`R1 = 1.2 ohm`). The recorded 5 A and 20 A LTspice results were obtained from the same schematic by changing only the load resistance to the corresponding operating-point value and recording the MOSFET average loss; separate `.asc` copies were not retained.
+
+### Master-results data semantics
+
+`results/master_results.csv` intentionally separates electrical and thermal quantities:
+
+- for `Electrical` rows, `Heat_Load_W` is the conservative one-pass 25°C heat-load reference used to define the thermal-response point, while `MOSFET_Loss_W` is the final converged electro-thermal MOSFET loss;
+- for `Thermal_Stress` and `Geometry` rows, `Heat_Load_W` is an imposed/fixed thermal load and `MOSFET_Loss_W` is therefore left blank;
+- the fixed 1.505 W geometry-comparison rows have `Load_Current_A` left blank because they are **not coupled 10 A operating cases**, even though 1.505 W originates from the conservative 10 A one-pass reference.
 
 The full ANSYS project/archive will be added by the materials collaborator when available. Until then, `thermal-model/ansys/README.md` records the model inputs and file handoff status.
 

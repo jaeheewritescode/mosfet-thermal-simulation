@@ -9,14 +9,14 @@ C07,Thermal_Stress,Stress 10W,,10.000,Aluminium,TGP5000,Baseline,25,Imposed ther
 C08,Thermal_Stress,Stress 10W,,10.000,Copper,TGP5000,Baseline,25,Imposed thermal-stress material-comparison case
 C09,Thermal_Stress,Stress 15W,,15.000,Aluminium,TGP5000,Baseline,25,Imposed extreme thermal-stress case
 C10,Thermal_Stress,Stress 15W,,15.000,Copper,TGP5000,Baseline,25,Imposed extreme thermal-stress material-comparison case
-C11,Reference,No heat sink,10,1.505,None,None,None,25,Coupled no-heat-sink reference; stopped after exceeding absolute junction-temperature limit
-C12,Geometry,Geometry 1 Baseline,10,1.505,Aluminium,TGP5000,Geometry_1,25,Geometry 1 aluminium baseline-load comparison
-C13,Geometry,Geometry 1 Baseline,10,1.505,Copper,TGP5000,Geometry_1,25,Geometry 1 copper baseline-load comparison
-C14,Geometry,Geometry 2 Baseline,10,1.505,Aluminium,TGP5000,Geometry_2,25,Geometry 2 aluminium baseline-load comparison
-C15,Geometry,Geometry 2 Baseline,10,1.505,Copper,TGP5000,Geometry_2,25,Geometry 2 copper baseline-load comparison
+C11,Reference,No heat sink,10,1.505,,,,25,Coupled no-heat-sink reference; stopped after exceeding absolute junction-temperature limit
+C12,Geometry,Geometry 1 Baseline,,1.505,Aluminium,TGP5000,Geometry_1,25,"Geometry 1 aluminium baseline-load comparison; fixed 1.505 W comparison derived from the conservative 10 A one-pass reference, not a coupled 10 A result"
+C13,Geometry,Geometry 1 Baseline,,1.505,Copper,TGP5000,Geometry_1,25,"Geometry 1 copper baseline-load comparison; fixed 1.505 W comparison derived from the conservative 10 A one-pass reference, not a coupled 10 A result"
+C14,Geometry,Geometry 2 Baseline,,1.505,Aluminium,TGP5000,Geometry_2,25,"Geometry 2 aluminium baseline-load comparison; fixed 1.505 W comparison derived from the conservative 10 A one-pass reference, not a coupled 10 A result"
+C15,Geometry,Geometry 2 Baseline,,1.505,Copper,TGP5000,Geometry_2,25,"Geometry 2 copper baseline-load comparison; fixed 1.505 W comparison derived from the conservative 10 A one-pass reference, not a coupled 10 A result"
 C16,Geometry,Geometry 2 Stress,,15.000,Aluminium,TGP5000,Geometry_2,25,Geometry 2 aluminium under 15 W thermal stress
 C17,Geometry,Geometry 2 Stress,,15.000,Copper,TGP5000,Geometry_2,25,Geometry 2 copper under 15 W thermal stress
 C18,Geometry,Geometry 1 Stress,,15.000,Aluminium,TGP5000,Geometry_1,25,Geometry 1 aluminium under 15 W thermal stress
 C19,Geometry,Geometry 1 Stress,,15.000,Copper,TGP5000,Geometry_1,25,Geometry 1 copper under 15 W thermal stress
-C20,Geometry,Original Baseline Fixed Heat,10,1.505,Aluminium,TGP5000 fixed,Baseline,25,Fixed 1.505 W original-geometry reference for controlled geometry comparison; not the coupled 10 A temperature
-C21,Geometry,Original Baseline Fixed Heat,10,1.505,Copper,TGP5000 fixed,Baseline,25,Fixed 1.505 W original-geometry reference for controlled geometry comparison; not the coupled 10 A temperature
+C20,Geometry,Original Baseline Fixed Heat,,1.505,Aluminium,TGP5000 fixed,Baseline,25,"Fixed 1.505 W original-geometry reference for controlled geometry comparison; heat load derives from the conservative 10 A one-pass reference, but this is not a coupled 10 A case"
+C21,Geometry,Original Baseline Fixed Heat,,1.505,Copper,TGP5000 fixed,Baseline,25,"Fixed 1.505 W original-geometry reference for controlled geometry comparison; heat load derives from the conservative 10 A one-pass reference, but this is not a coupled 10 A case"

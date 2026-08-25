@@ -153,6 +153,7 @@ mass, raw-material cost and integration burden.
 > Select the minimum-mass tested passive heat-sink design that maintains
 > **Tj ≤ 125°C at 15 W imposed thermal dissipation and 25°C ambient**.
 
+The **125°C** target is project-defined to retain a **50°C margin** below the 175°C absolute maximum.
 The **175°C** value is treated as the absolute device limit rather than the desired
 design operating temperature. The 15 W case is an imposed thermal-stress condition
 and is not mapped to a converter current.
