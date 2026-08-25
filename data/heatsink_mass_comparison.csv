@@ -1,4 +1,4 @@
 Geometry,Base_Length_mm,Base_Width_mm,Base_Thickness_mm,Number_of_Fins,Fin_Dimensions_mm,Total_Volume_cm3,Aluminium_Mass_kg,Aluminium_Raw_Material_Cost_GBP,Copper_Mass_kg,Copper_Raw_Material_Cost_GBP,Mass_Reduction_vs_Original_pct
-Original,80,50,5,8,5.5x50x50,130,0.351,0.829293,1.1583,11.724985,0
+Original,80,50,5,8,5.5x50x50,130.0,0.351,0.829293,1.1583,11.724985,0
 Geometry 1,60,50,5,6,5.5x50x50,97.5,0.26325,0.62197,0.868725,8.793738,25
-Geometry 2,40,50,5,4,5.5x50x50,65,0.1755,0.414646,0.57915,5.862492,50
+Geometry 2,40,50,5,4,5.5x50x50,65.0,0.1755,0.414646,0.57915,5.862492,50

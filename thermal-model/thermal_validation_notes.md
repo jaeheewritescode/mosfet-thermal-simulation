@@ -15,10 +15,10 @@ The thermal-model settings below are reused for controlled comparisons unless a 
 ## Completed Validation Evidence
 
 - The 1.505 W aluminium baseline was compared with an independent thermal-resistance network.
-- Analytical Tj ≈ 33.22°C and ANSYS-derived Tj ≈ 32.88°C, a difference of about 1%.
+- Analytical Tj ≈ 33.22°C and ANSYS-derived Tj ≈ 32.88°C. The absolute difference is approximately **0.34°C**, equivalent to about **4.2% of the ANSYS temperature rise above 25°C ambient**, which is within the project 10% validation guide.
 - A three-level mesh-independence study was completed using global element sizes of **5.0 mm, 2.5 mm and 2.0 mm**.
 - The corresponding maximum temperatures were **30.628°C, 30.631°C and 30.633°C**.
-- The medium-to-fine change was approximately **0.0065%**, and the coarse-to-fine change approximately **0.0163%**, both far below the project criterion of 2%.
+- The medium-to-fine absolute temperature change was only **0.002°C**, equivalent to approximately **0.0355% of the medium-mesh temperature rise above ambient**. The coarse-to-fine change was **0.005°C**, or approximately **0.0888% of the coarse-mesh temperature rise**. Both are far below the project criterion of 2%.
 - A 1.25 mm refinement was attempted but exceeded the ANSYS Student node/element limit; the already stabilised 5.0/2.5/2.0 mm sequence provides the retained mesh-convergence evidence.
 - The **2.5 mm medium mesh** is retained as the project compromise between computation and numerical accuracy.
 - Electrically derived and imposed/fixed thermal loads are kept separate in the data files.
@@ -27,7 +27,7 @@ The quantitative calculation and plot are stored in `mesh_independence.ipynb`.
 
 ## Evidence Boundary
 
-A separate quantitative ANSYS energy-balance result is **not included or claimed** in the final validation evidence. The remaining repository artifact is the full archived ANSYS project/model file held by the materials collaborator.
+A separate quantitative ANSYS energy-balance result is **not included or claimed** in the final validation evidence. The native ANSYS project/archive is also **not included**. The repository therefore freezes the FEA evidence at the documented settings, result tables, screenshots and mesh study; this is an explicit reproducibility limitation rather than an outstanding project task.
 
 ## Controlled-Comparison Rule
 

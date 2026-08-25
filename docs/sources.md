@@ -53,7 +53,7 @@ Project-generated results such as ANSYS temperatures, calculated junction temper
 ## Manufacturability and Industrial Use
 
 11. **Hydro — 6061-T6 Aluminum Properties**  
-   Used to support the manufacturability discussion for aluminium 6061-T6, including extrusion suitability, machinability, and industrial heat-sink applications.  
+   Used to support aluminium 6061-T6 numerical properties and manufacturability. Hydro reports specific gravity **2.70** and typical thermal conductivity of approximately **167 W/mK**; the project uses **170 W/mK** as a rounded engineering input. The source also supports extrusion and machining suitability.  
    https://www.hydro.com/us/us/aluminum/products/extruded-profiles/north-america-resources/extruded-aluminum-products/aluminum-extrusion-alloys/6061-t6-aluminum-properties/
 
 ## Raw-Material Cost Data

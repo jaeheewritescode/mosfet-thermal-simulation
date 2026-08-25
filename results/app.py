@@ -108,6 +108,7 @@ def get_geometry_case(material_name, geometry_key, heat_load_w):
 # Sidebar
 # ------------------------------------------------------------
 st.sidebar.header("Explore the Design")
+st.sidebar.subheader("Electrical view")
 
 current = st.sidebar.selectbox(
     "Electrical load current",
@@ -119,6 +120,9 @@ material = st.sidebar.selectbox(
     "Heat-sink material",
     ["Aluminium", "Copper"],
 )
+
+st.sidebar.divider()
+st.sidebar.subheader("Thermal design view")
 
 geometry_label = st.sidebar.selectbox(
     "Heat-sink geometry",
@@ -183,8 +187,8 @@ if not baseline_10a.empty and not no_sink.empty:
 
     if no_sink_tj > ABSOLUTE_TJ_LIMIT:
         st.error(
-            "The coupled no-heat-sink case exceeds the 175°C device limit. "
-            "Dedicated cooling is therefore required before optimisation."
+            "Under the conservative datasheet-based no-heat-sink reference, the coupled case exceeds "
+            "the 175°C device limit. Dedicated cooling is therefore required within this model before optimisation."
         )
 
 st.divider()
@@ -614,7 +618,7 @@ with v2:
 - 2.5 mm: **30.631°C**
 - 2.0 mm: **30.633°C**
 
-Medium-to-fine change ≈ **0.0065%**, well below the **2%** project criterion.
+Medium-to-fine absolute change = **0.002°C**, approximately **0.0355% of the temperature rise above ambient**, well below the **2%** project criterion.
 """
     )
 

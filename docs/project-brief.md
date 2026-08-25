@@ -68,9 +68,9 @@ The project follows a connected modelling chain:
 
 ## Why Cooling Is Required
 
-The no-heat-sink electro-thermal case demonstrates that the MOSFET cannot be treated as thermally independent from its electrical operating condition.
+The conservative datasheet-based no-heat-sink electro-thermal reference demonstrates that the MOSFET cannot be treated as thermally independent from its electrical operating condition.
 
-At the 10 A condition, electro-thermal feedback drives the no-heat-sink junction temperature beyond the device limit, whereas the baseline heat sink maintains a substantially lower junction temperature.
+At the 10 A condition, the adopted datasheet `RθJA` reference combined with electro-thermal feedback drives the predicted no-heat-sink junction temperature beyond the device limit, whereas the baseline heat sink maintains a substantially lower junction temperature. This is a conservative modelling reference, not a universal prediction for every PCB/enclosure configuration.
 
 This establishes the engineering need for dedicated cooling before optimisation is considered.
 
@@ -164,7 +164,7 @@ The larger analytical-versus-LTspice total-loss discrepancy was traced primarily
 
 ### Thermal validation
 
-The ANSYS baseline result was compared with an analytical thermal-resistance model.
+The ANSYS baseline result was compared with an analytical thermal-resistance model. The analytical junction temperature is approximately **33.22°C** versus **32.88°C** from the ANSYS-derived result: an absolute difference of about **0.34°C**, equivalent to approximately **4.2% of the ANSYS temperature rise above ambient** and within the project 10% validation guide.
 
 ### Mesh independence
 
@@ -174,7 +174,7 @@ Maximum temperature changed from:
 - 2.5 mm mesh: **30.631°C**
 - 2.0 mm mesh: **30.633°C**
 
-The medium-to-fine difference is approximately **0.0065%**, substantially below the project's **2%** mesh-independence criterion.
+The medium-to-fine absolute temperature change is only **0.002°C**, equivalent to approximately **0.0355% of the temperature rise above 25°C ambient**. This is substantially below the project's **2%** mesh-independence criterion.
 
 ### Electro-Thermal Convergence
 
@@ -233,6 +233,6 @@ Completed:
 - Streamlit engineering dashboard
 - project references
 
-Pending repository artifact:
+Final evidence boundary:
 
-- full ANSYS project/archive from the materials collaborator
+- the native ANSYS project/archive is **not available for inclusion**; the project therefore retains the documented model settings, result tables, screenshots and mesh study as its final FEA evidence and does not claim exact GUI-level reproducibility or experimental validation

@@ -1,8 +1,6 @@
 # ANSYS Model Handoff
 
-The full ANSYS project/archive is held by the materials collaborator and will be added to this folder when available.
-
-Until that file is committed, the repository records the model setup through the thermal notebooks, CSV results, validation notes, geometry images and ANSYS screenshots.
+The native ANSYS project/archive is **not included in this repository**. The project is therefore frozen using the retained model specification, thermal notebooks, CSV results, validation notes, geometry images and ANSYS screenshots. This is an explicit evidence boundary rather than a pending deliverable.
 
 ## Frozen baseline setup
 
@@ -26,10 +24,15 @@ Quantitative mesh independence is complete and documented in:
 - `../mesh_independence.ipynb`
 - `../thermal_validation_notes.md`
 
-The retained mesh sequence is 5.0 / 2.5 / 2.0 mm with maximum temperatures 30.628 / 30.631 / 30.633°C; the medium-to-fine change is approximately 0.0065%.
+The retained mesh sequence is 5.0 / 2.5 / 2.0 mm with maximum temperatures 30.628 / 30.631 / 30.633°C. The medium-to-fine absolute change is **0.002°C**, equivalent to approximately **0.0355% of temperature rise above ambient**.
 
 A separate quantitative ANSYS energy-balance result is not claimed in the final evidence set.
 
-## Remaining handoff item
+## Native-model limitation
 
-- Full ANSYS project/archive from the materials collaborator.
+The original ANSYS project/archive is unavailable for inclusion. Exact GUI-level settings that are not captured in the retained documentation cannot therefore be independently audited. No stronger reproducibility claim is made.
+
+
+## Reconstruction record
+
+See `reconstruction_specification.md` for the consolidated retained model definition, loads, mesh evidence and explicit limits of reconstruction.

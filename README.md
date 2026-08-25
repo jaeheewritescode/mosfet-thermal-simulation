@@ -12,7 +12,7 @@ The project asks:
 
 ### Why dedicated cooling is required
 
-The 10 A coupled no-heat-sink reference exceeds the **175°C absolute device limit**, while the baseline aluminium heat sink holds the coupled 10 A junction temperature to approximately **33.1°C**.
+Under the **conservative datasheet-based junction-to-ambient no-heat-sink reference**, the 10 A coupled case exceeds the **175°C absolute device limit**, while the baseline aluminium heat sink holds the coupled 10 A junction temperature to approximately **33.1°C**.
 
 | 10 A cooling configuration | Junction temperature | Result |
 |---|---:|---|
@@ -69,6 +69,25 @@ Tools used:
 - **ANSYS Steady-State Thermal** - heat-sink thermal simulations
 
 The electrically derived 5 A / 10 A / 20 A cases are kept separate from the imposed 10 W / 15 W thermal-stress cases.
+
+## Quick Start
+
+From the repository root:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows PowerShell: .venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+streamlit run results/app.py
+```
+
+Run notebooks from their own repository directories so that the documented relative CSV paths resolve correctly. To check the frozen data and decision logic without opening any notebook, run:
+
+```bash
+python scripts/validate_repository.py
+```
+
+The expected final line is `ALL REPOSITORY CHECKS PASSED`.
 
 ## Electrical Operating Envelope
 
@@ -187,16 +206,16 @@ See `results/engineering_assessment.ipynb` for the calculation and limitations.
 
 Completed checks include:
 
-- analytical thermal-resistance estimate versus ANSYS baseline: approximately **1% difference**,
+- analytical thermal-resistance estimate versus ANSYS baseline: **0.34°C absolute difference**, approximately **4.2% of the ANSYS temperature rise above ambient**,
 - analytical-versus-LTspice electrical comparison, including waveform decomposition showing about **4% difference** in the 10 A conduction-loss component,
-- quantitative three-level mesh-independence study: **30.628°C / 30.631°C / 30.633°C** for 5.0 / 2.5 / 2.0 mm global element sizes, with a **0.0065%** medium-to-fine change,
+- quantitative three-level mesh-independence study: **30.628°C / 30.631°C / 30.633°C** for 5.0 / 2.5 / 2.0 mm global element sizes; medium-to-fine absolute change **0.002°C**, approximately **0.0355% of temperature rise above ambient**,
 - coupled 5 A / 10 A / 20 A operating solutions,
 - convergence robustness from multiple starting temperatures,
 - controlled material and geometry comparisons,
 - natural-convection sensitivity, and
 - separation of electrically derived and imposed thermal-stress cases.
 
-The repository does **not** claim experimental hardware validation. A separate quantitative ANSYS energy-balance result is also not claimed as part of the final evidence set. The remaining repository artifact is the full ANSYS project/archive held by the materials collaborator.
+The repository does **not** claim experimental hardware validation or a quantitative ANSYS energy-balance result. The native ANSYS project/archive is **not available for inclusion**, so the final FEA evidence is intentionally limited to the documented setup, result tables, screenshots and mesh study. This is a stated reproducibility limitation, not a pending project task.
 
 ## Reproducibility
 
@@ -220,7 +239,7 @@ The committed LTspice schematic preserves the **10 A baseline** load (`R1 = 1.2 
 - for `Thermal_Stress` and `Geometry` rows, `Heat_Load_W` is an imposed/fixed thermal load and `MOSFET_Loss_W` is therefore left blank;
 - the fixed 1.505 W geometry-comparison rows have `Load_Current_A` left blank because they are **not coupled 10 A operating cases**, even though 1.505 W originates from the conservative 10 A one-pass reference.
 
-The full ANSYS project/archive will be added by the materials collaborator when available. Until then, `thermal-model/ansys/README.md` records the model inputs and file handoff status.
+The native ANSYS archive is unavailable. `thermal-model/ansys/README.md` records the retained model specification and the exact evidence boundary so the repository does not overstate FEA reproducibility.
 
 ## Final Recommendation
 
@@ -230,7 +249,7 @@ For the defined project conditions:
 
 The recommendation is based on the following engineering chain:
 
-1. A no-heat-sink design is thermally unacceptable at the 10 A reference condition.
+1. Under the conservative datasheet-based no-heat-sink reference, the 10 A case is thermally unacceptable.
 2. Copper provides only a small thermal improvement relative to its mass/cost penalty, so aluminium is screened in.
 3. The 40 mm aluminium design fails the 125°C requirement at 15 W.
 4. The 80 mm aluminium design passes but uses more material than required.
@@ -246,7 +265,7 @@ The recommendation is based on the following engineering chain:
 - `data/` - frozen inputs, case matrix and design data
 - `results/` - master results and final engineering assessment
 - `references/` - BibTeX bibliography
-- `docs/` - project brief and traceable sources
+- `docs/` - project brief, engineering evidence matrix and traceable sources
 
 `results/master_results.csv` is the final numerical source of truth for reported simulation cases.
 
@@ -265,5 +284,6 @@ These are raw-material comparison values only; they exclude extrusion, machining
 
 See:
 
+- `docs/engineering-evidence-matrix.md` for the verification/validation evidence and limitations,
 - `docs/sources.md` for a readable source register,
 - `references/references.bib` for the BibTeX bibliography.
