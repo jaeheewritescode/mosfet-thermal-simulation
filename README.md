@@ -70,6 +70,27 @@ Tools used:
 
 The electrically derived 5 A / 10 A / 20 A cases are kept separate from the imposed 10 W / 15 W thermal-stress cases.
 
+## Simulation Models
+
+#### LTspice Electrical Model
+
+![alt text](/electrical-model/images/LTSpice.png)
+
+The 24 V to 12 V non-synchronous buck converter was modelled in LTspice at
+5 A, 10 A and 20 A operating points. MOSFET voltage and current waveforms
+were used to validate the analytical electrical-loss model.
+
+#### ANSYS Thermal Model
+
+![alt text](/thermal-model/images/Ansys_1.png)
+
+A steady-state thermal model was used to predict the MOSFET and heat-sink
+temperature response under prescribed natural-convection conditions.
+Electrical MOSFET losses and imposed thermal-stress loads were applied as
+heat inputs to the thermal model.
+
+
+
 ## Quick Start
 
 From the repository root:
