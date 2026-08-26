@@ -50,7 +50,7 @@ The medium-to-fine change is **0.002°C**, approximately **0.0355% of the temper
 ## Retained FEA evidence
 
 - `../geometry_variation.ipynb`
-- `../thermal_resistance_estimate_cleaned.ipynb`
+- `../thermal_resistance_estimate.ipynb`
 - `../mesh_independence.ipynb`
 - `../thermal_validation_notes.md`
 - `../images/Ansys_1.png`
